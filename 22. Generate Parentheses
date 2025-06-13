@@ -1,0 +1,25 @@
+class Solution {
+    private void backtrack(int openCount, int closeCount, int n, List<String> list, StringBuilder sb){
+        if(openCount == closeCount && openCount == n){
+            list.add(sb.toString());
+            return;
+        }
+        if(openCount < n){
+            sb.append('(');
+            backtrack(openCount + 1, closeCount, n, list, sb);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        if(closeCount < openCount){
+            sb.append(')');
+            backtrack(openCount, closeCount + 1, n, list, sb);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        backtrack(0, 0, n, result, sb);
+        return result;
+    }
+}
